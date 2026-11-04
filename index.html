@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Songfinite · a pixel music player for your songs and YouTube</title>
+<meta name="description" content="Songfinite is a desktop music player for your own files and YouTube links, with synced lyrics, playlists and an endless YouTube radio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFE9F1; --panel:#FFF5F9; --alt:#FFE1EC; --line:#F5C3D6; --text:#4A1730; --dim:#7A3556; --accent:#C8326A; --ink:#FFFFFF;
+          --r-bg:#1B0B15; --r-text:#FFE3EE; --r-dim:#EAB3CB; --r-neon:#FF6FA5; --r-line:#4C2238; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1A0C14; --panel:#24111C; --alt:#2E1624; --line:#47263A; --text:#FFE3EE; --dim:#E8A9C3; --accent:#FF6FA5; --ink:#2A0A1A;
+            --r-bg:#0E050B; --r-line:#3D1A2E; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 'IBM Plex Sans', system-ui, sans-serif; }
+  a { color: var(--accent); }
+  .px { font-family: 'Silkscreen', ui-monospace, monospace; text-transform: uppercase; letter-spacing: .14em; font-weight: 400; }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 22px 0; border-bottom: 2px solid var(--line); }
+  header .wrap { display: flex; align-items: center; gap: 14px; }
+  .mark { width: 22px; height: 22px; color: var(--accent); }
+  .word { font-size: 16px; letter-spacing: .3em; }
+  .chip { font-size: 11px; padding: 2px 8px; border: 2px solid var(--line); color: var(--dim); }
+  nav { margin-left: auto; display: flex; gap: 18px; font-size: 14px; }
+  .hero { padding: 64px 0 48px; }
+  h1 { font-size: clamp(32px, 6vw, 56px); line-height: 1.05; margin: 0 0 18px; }
+  .lead { font-size: 19px; color: var(--dim); max-width: 620px; margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; padding-bottom: 48px; }
+  .card { background: var(--panel); border: 2px solid var(--line); padding: 18px;
+          clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px); }
+  .card h2 { font-size: 12px; margin: 0 0 8px; color: var(--accent); }
+  .card p { margin: 0; color: var(--dim); font-size: 15px; }
+  .radio { background-color: var(--r-bg); color: var(--r-text); border-top: 3px solid var(--r-neon);
+           background-image: repeating-linear-gradient(0deg, rgba(255,111,165,.05) 0 1px, transparent 1px 4px); padding: 48px 0; }
+  .radio h2 { font-size: clamp(22px, 4vw, 34px); margin: 0 0 12px; }
+  .radio p { color: var(--r-dim); max-width: 640px; margin: 0 0 10px; }
+  .air { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--r-neon); border: 2px solid var(--r-neon); padding: 2px 8px; margin-bottom: 14px; }
+  .air i { width: 6px; height: 6px; background: var(--r-neon); display: inline-block; }
+  .google { padding: 44px 0; }
+  .google h2 { font-size: 14px; margin: 0 0 12px; }
+  .google p { color: var(--dim); max-width: 720px; }
+  footer { border-top: 2px solid var(--line); padding: 22px 0 40px; font-size: 13px; color: var(--dim); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 18px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <svg class="mark" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M1 1h3v1H1zM6 1h3v1H6zM0 2h10v3H0zM1 5h8v1H1zM2 6h6v1H2zM3 7h4v1H3zM4 8h2v1H4z"/></svg>
+    <span class="px word">Songfinite</span>
+    <span class="mono chip">1.20</span>
+    <nav><a href="#radio">Radio</a><a href="#google">Google sign-in</a><a href="privacy.html">Privacy</a></nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1 class="px">Your songs,<br>forever</h1>
+      <p class="lead">Songfinite is a desktop music player in pixel pink for your own music files and YouTube links: playlists, synced karaoke lyrics, offline copies and an endless YouTube radio made from your taste.</p>
+    </div>
+  </section>
+
+  <section class="wrap grid" aria-label="What it does">
+    <div class="card"><h2 class="px">Files and links</h2><p>Play your MP3s and videos next to YouTube links, in one library with playlists, favourites, ratings and tags.</p></div>
+    <div class="card"><h2 class="px">Synced lyrics</h2><p>Find lyrics, sync them line by line in the Lyrics Studio and sing along in full screen.</p></div>
+    <div class="card"><h2 class="px">Offline</h2><p>Keep any YouTube song as a video or an MP3 on your computer, to play without the internet.</p></div>
+    <div class="card"><h2 class="px">Songs window</h2><p>Browse everything as a grid, filtered by playlist, by tag, by what you never played or love most.</p></div>
+  </section>
+
+  <section class="radio" id="radio">
+    <div class="wrap">
+      <span class="px air"><i></i>On air</span>
+      <h2 class="px">YouTube radio</h2>
+      <p>Endless mixes made from what you like on YouTube. Songfinite finds the sounds in your listening (nightcore, rock versions, the artists you love) and turns each into a station that never runs out.</p>
+      <p>Every song has two buttons: ADD keeps the link in your songs, DOWNLOAD keeps it offline too.</p>
+    </div>
+  </section>
+
+  <section class="google" id="google">
+    <div class="wrap">
+      <h2 class="px">Signing in with Google</h2>
+      <p>Signing in is optional. When you do, Songfinite asks Google for read-only access to your YouTube account, so the radio can read the videos you liked, your playlists and the channels you follow. That information is used only to build your mixes, on your own computer. Songfinite has no servers: nothing you sign in with or listen to is sent to its developer or to anyone else.</p>
+      <p>Read the full <a href="privacy.html">privacy policy</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Songfinite · made for listening</span>
+    <a href="privacy.html">Privacy policy</a>
+    <a href="mailto:kissdevidavid@gmail.com">Contact</a>
+  </div>
+</footer>
+</body>
+</html>
