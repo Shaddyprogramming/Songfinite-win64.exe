@@ -46,7 +46,7 @@
 
 <main class="wrap">
   <h1 class="px">Privacy policy</h1>
-  <p class="date">Last updated 3 November 2026</p>
+  <p class="date">Last updated 4 November 2026 · Songfinite 1.22</p>
 
   <p>Songfinite is a desktop music player that runs on your own computer. It has no servers and no accounts of its own. This page explains what it does with your data, in particular the data it can read from your Google account when you choose to sign in.</p>
 
@@ -70,11 +70,15 @@
     <li><strong>The sign-in key</strong> Google hands back is kept in your system's password vault (Windows Credential Manager, macOS Keychain or the Linux secret service) when one is available, otherwise in Songfinite's data folder. Your Google password never reaches Songfinite: you type it on Google's own page in your browser.</li>
     <li><strong>Your profile</strong> (name, email, picture) and <strong>your taste</strong> are kept in Songfinite's data folder.</li>
     <li><strong>An optional watch history</strong>, only if you import your own <code>watch-history.json</code> from Google Takeout, is kept in Songfinite's data folder.</li>
-    <li><strong>An optional YouTube sign-in for downloads</strong>: if you pick a browser on the account page, Songfinite copies only that browser's YouTube and Google cookies into its data folder, so YouTube lets you play and download as yourself. Nothing else from the browser is read or kept.</li>
+    <li><strong>A YouTube sign-in for playback and downloads</strong>: so that YouTube treats you as yourself and not as a bot, Songfinite looks through the browsers on your computer for one signed in to YouTube, or uses a <code>cookies.txt</code> you import yourself. It copies only YouTube's and Google's cookies into its data folder; nothing else from the browser is read or kept. To find the browser of the Google account you signed in with, it asks Google which account those cookies belong to. You can turn this off on the account page.</li>
   </ul>
 
   <h2 class="px">Who it is shared with</h2>
   <p>No one. Songfinite talks only to Google and YouTube, directly from your computer, to sign you in, read your YouTube data and play the songs you choose. It has no analytics, no ads and no tracking.</p>
+
+  <h2 class="px">YouTube API Services</h2>
+  <p>Songfinite uses YouTube API Services. By using its YouTube features you agree to be bound by the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Google's handling of your data is described in the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+  <p>Songfinite keeps what it reads from the YouTube API (your taste and the songs it starts from) only on your computer, and reads it again from YouTube once a day at most, unless you press READ AGAIN. Forgetting your taste on the account page, or disconnecting, deletes it at once.</p>
 
   <h2 class="px">Google API Services User Data Policy</h2>
   <p>Songfinite's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. Data from Google is used only to provide the features described above, is not transferred to others, is not used for advertising, and is not read by humans.</p>
@@ -94,7 +98,7 @@
 </main>
 
 <footer>
-  <div class="wrap">Songfinite · <a href="./">Home</a></div>
+  <div class="wrap">Songfinite · <a href="./">Home</a> · <a href="terms.html">Terms of service</a></div>
 </footer>
 </body>
 </html>

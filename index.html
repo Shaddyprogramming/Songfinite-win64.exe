@@ -41,6 +41,14 @@
   .radio p { color: var(--r-dim); max-width: 640px; margin: 0 0 10px; }
   .air { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--r-neon); border: 2px solid var(--r-neon); padding: 2px 8px; margin-bottom: 14px; }
   .air i { width: 6px; height: 6px; background: var(--r-neon); display: inline-block; }
+  .get { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; margin-top: 28px; }
+  .button { display: inline-flex; align-items: center; gap: 10px; padding: 0 22px; height: 48px; background: var(--accent); color: var(--ink);
+            text-decoration: none; font-size: 13px;
+            clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px); }
+  .button:hover, .button:focus-visible { filter: brightness(1.08); outline: none; }
+  .button svg { width: 14px; height: 14px; }
+  .meta { color: var(--dim); font-size: 13px; }
+  .note { color: var(--dim); font-size: 13px; max-width: 620px; margin: 14px 0 0; }
   .google { padding: 44px 0; }
   .google h2 { font-size: 14px; margin: 0 0 12px; }
   .google p { color: var(--dim); max-width: 720px; }
@@ -53,8 +61,8 @@
   <div class="wrap">
     <svg class="mark" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M1 1h3v1H1zM6 1h3v1H6zM0 2h10v3H0zM1 5h8v1H1zM2 6h6v1H2zM3 7h4v1H3zM4 8h2v1H4z"/></svg>
     <span class="px word">Songfinite</span>
-    <span class="mono chip">1.20</span>
-    <nav><a href="#radio">Radio</a><a href="#google">Google sign-in</a><a href="privacy.html">Privacy</a></nav>
+    <span class="mono chip">1.22</span>
+    <nav><a href="#download">Download</a><a href="#radio">Radio</a><a href="#google">Google sign-in</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
   </div>
 </header>
 
@@ -63,6 +71,14 @@
     <div class="wrap">
       <h1 class="px">Your songs,<br>forever</h1>
       <p class="lead">Songfinite is a desktop music player in pixel pink for your own music files and YouTube links: playlists, synced karaoke lyrics, offline copies and an endless YouTube radio made from your taste.</p>
+      <div class="get" id="download">
+        <a class="button px" href="https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1/SongfiniteSetup-1.22.exe">
+          <svg viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M4 0h2v5h2v1H7v1H6v1H4V7H3V6H2V5h2zM0 8h1v1h8V8h1v2H0z"/></svg>
+          Download for Windows
+        </a>
+        <span class="mono meta">VERSION 1.22 · WINDOWS 10 AND 11, 64-BIT · FREE</span>
+      </div>
+      <p class="note">The installer is not code-signed yet, so Windows may say it protected your PC: press <strong>More info</strong>, then <strong>Run anyway</strong>. By installing Songfinite you agree to the <a href="terms.html">terms of service</a>.</p>
     </div>
   </section>
 
@@ -78,7 +94,7 @@
       <span class="px air"><i></i>On air</span>
       <h2 class="px">YouTube radio</h2>
       <p>Endless mixes made from what you like on YouTube. Songfinite finds the sounds in your listening (nightcore, rock versions, the artists you love) and turns each into a station that never runs out.</p>
-      <p>Every song has two buttons: ADD keeps the link in your songs, DOWNLOAD keeps it offline too.</p>
+      <p>Every song has two buttons: ADD keeps the link in your songs, DOWNLOAD keeps it offline too. REROLL starts a station again from other songs, and any song you own can start a mix of its own.</p>
     </div>
   </section>
 
@@ -86,7 +102,8 @@
     <div class="wrap">
       <h2 class="px">Signing in with Google</h2>
       <p>Signing in is optional. When you do, Songfinite asks Google for read-only access to your YouTube account, so the radio can read the videos you liked, your playlists and the channels you follow. That information is used only to build your mixes, on your own computer. Songfinite has no servers: nothing you sign in with or listen to is sent to its developer or to anyone else.</p>
-      <p>Read the full <a href="privacy.html">privacy policy</a>.</p>
+      <p>Songfinite uses YouTube API Services. By using its YouTube features you also agree to the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>, and Google handles your data under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+      <p>Read the full <a href="privacy.html">privacy policy</a> and the <a href="terms.html">terms of service</a>.</p>
     </div>
   </section>
 </main>
@@ -94,7 +111,9 @@
 <footer>
   <div class="wrap">
     <span>Songfinite · made for listening</span>
+    <a href="https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1/SongfiniteSetup-1.22.exe">Download 1.22</a>
     <a href="privacy.html">Privacy policy</a>
+    <a href="terms.html">Terms of service</a>
     <a href="mailto:kissdevidavid@gmail.com">Contact</a>
   </div>
 </footer>
