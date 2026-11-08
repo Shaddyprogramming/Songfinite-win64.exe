@@ -10,7 +10,7 @@ download what you ask for.
 
 ## Download
 
-[link](https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1/SongfiniteSetup-1.22.exe)
+https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1.31.4/SongfiniteSetup-1.31.4.exe
 
 ---
 
