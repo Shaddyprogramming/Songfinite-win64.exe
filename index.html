@@ -4,16 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Songfinite · a pixel music player for your songs and YouTube</title>
-<meta name="description" content="Songfinite is a desktop music player for your own files and YouTube links, with synced lyrics, playlists and an endless YouTube radio.">
+<meta name="description" content="Songfinite is a desktop music player for your own files and YouTube links, with synced lyrics, playlists, listening stats and an endless YouTube radio.">
+<meta name="songfinite-version" content="1.31.4">
+<meta name="songfinite-download" content="https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1/SongfiniteSetup-1.31.4.exe">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
 <style>
   :root { --bg:#FFE9F1; --panel:#FFF5F9; --alt:#FFE1EC; --line:#F5C3D6; --text:#4A1730; --dim:#7A3556; --accent:#C8326A; --ink:#FFFFFF;
-          --r-bg:#1B0B15; --r-text:#FFE3EE; --r-dim:#EAB3CB; --r-neon:#FF6FA5; --r-line:#4C2238; }
+          --r-bg:#1B0B15; --r-text:#FFE3EE; --r-dim:#EAB3CB; --r-neon:#FF6FA5; --r-line:#4C2238; --r-panel:#26101D; }
   @media (prefers-color-scheme: dark) {
     :root { --bg:#1A0C14; --panel:#24111C; --alt:#2E1624; --line:#47263A; --text:#FFE3EE; --dim:#E8A9C3; --accent:#FF6FA5; --ink:#2A0A1A;
-            --r-bg:#0E050B; --r-line:#3D1A2E; }
+            --r-bg:#0E050B; --r-line:#3D1A2E; --r-panel:#1B0A14; }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 'IBM Plex Sans', system-ui, sans-serif; }
@@ -22,23 +24,27 @@
   .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
   .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
   header { padding: 22px 0; border-bottom: 2px solid var(--line); }
-  header .wrap { display: flex; align-items: center; gap: 14px; }
+  header .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
   .mark { width: 22px; height: 22px; color: var(--accent); }
   .word { font-size: 16px; letter-spacing: .3em; }
   .chip { font-size: 11px; padding: 2px 8px; border: 2px solid var(--line); color: var(--dim); }
-  nav { margin-left: auto; display: flex; gap: 18px; font-size: 14px; }
+  nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 18px; font-size: 14px; }
   .hero { padding: 64px 0 48px; }
   h1 { font-size: clamp(32px, 6vw, 56px); line-height: 1.05; margin: 0 0 18px; }
-  .lead { font-size: 19px; color: var(--dim); max-width: 620px; margin: 0; }
+  .lead { font-size: 19px; color: var(--dim); max-width: 640px; margin: 0; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; padding-bottom: 48px; }
   .card { background: var(--panel); border: 2px solid var(--line); padding: 18px;
           clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px); }
   .card h2 { font-size: 12px; margin: 0 0 8px; color: var(--accent); }
   .card p { margin: 0; color: var(--dim); font-size: 15px; }
+  .new { font-size: 9px; color: var(--ink); background: var(--accent); padding: 1px 6px; margin-left: 6px; vertical-align: 2px; }
   .radio { background-color: var(--r-bg); color: var(--r-text); border-top: 3px solid var(--r-neon);
            background-image: repeating-linear-gradient(0deg, rgba(255,111,165,.05) 0 1px, transparent 1px 4px); padding: 48px 0; }
   .radio h2 { font-size: clamp(22px, 4vw, 34px); margin: 0 0 12px; }
-  .radio p { color: var(--r-dim); max-width: 640px; margin: 0 0 10px; }
+  .radio p { color: var(--r-dim); max-width: 660px; margin: 0 0 10px; }
+  .radio ul { color: var(--r-dim); max-width: 700px; padding-left: 20px; margin: 18px 0 0; }
+  .radio li { margin: 6px 0; }
+  .radio li strong { color: var(--r-text); font-weight: 600; }
   .air { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--r-neon); border: 2px solid var(--r-neon); padding: 2px 8px; margin-bottom: 14px; }
   .air i { width: 6px; height: 6px; background: var(--r-neon); display: inline-block; }
   .get { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; margin-top: 28px; }
@@ -48,9 +54,12 @@
   .button:hover, .button:focus-visible { filter: brightness(1.08); outline: none; }
   .button svg { width: 14px; height: 14px; }
   .meta { color: var(--dim); font-size: 13px; }
-  .note { color: var(--dim); font-size: 13px; max-width: 620px; margin: 14px 0 0; }
-  .google { padding: 44px 0; }
-  .google h2 { font-size: 14px; margin: 0 0 12px; }
+  .note { color: var(--dim); font-size: 13px; max-width: 640px; margin: 14px 0 0; }
+  .whatsnew { padding: 44px 0 8px; }
+  .whatsnew h2, .google h2 { font-size: 14px; margin: 0 0 12px; }
+  .whatsnew ul { color: var(--dim); max-width: 720px; padding-left: 20px; margin: 0; }
+  .whatsnew li { margin: 5px 0; }
+  .google { padding: 36px 0 44px; }
   .google p { color: var(--dim); max-width: 720px; }
   footer { border-top: 2px solid var(--line); padding: 22px 0 40px; font-size: 13px; color: var(--dim); }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 18px; }
@@ -61,8 +70,8 @@
   <div class="wrap">
     <svg class="mark" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M1 1h3v1H1zM6 1h3v1H6zM0 2h10v3H0zM1 5h8v1H1zM2 6h6v1H2zM3 7h4v1H3zM4 8h2v1H4z"/></svg>
     <span class="px word">Songfinite</span>
-    <span class="mono chip">1.22</span>
-    <nav><a href="#download">Download</a><a href="#radio">Radio</a><a href="#google">Google sign-in</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+    <span class="mono chip">1.31.4</span>
+    <nav><a href="#download">Download</a><a href="#radio">Radio</a><a href="#new">What's new</a><a href="#google">Google sign-in</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
   </div>
 </header>
 
@@ -70,15 +79,15 @@
   <section class="hero">
     <div class="wrap">
       <h1 class="px">Your songs,<br>forever</h1>
-      <p class="lead">Songfinite is a desktop music player in pixel pink for your own music files and YouTube links: playlists, synced karaoke lyrics, offline copies and an endless YouTube radio made from your taste.</p>
+      <p class="lead">Songfinite is a desktop music player in pixel pink for your own music files and YouTube links: playlists, synced karaoke lyrics, offline copies, listening stats and an endless YouTube radio made from your taste.</p>
       <div class="get" id="download">
-        <a class="button px" href="https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1/SongfiniteSetup-1.22.exe">
+        <a class="button px" href="https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1/SongfiniteSetup-1.31.4.exe">
           <svg viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M4 0h2v5h2v1H7v1H6v1H4V7H3V6H2V5h2zM0 8h1v1h8V8h1v2H0z"/></svg>
           Download for Windows
         </a>
-        <span class="mono meta">VERSION 1.22 · WINDOWS 10 AND 11, 64-BIT · FREE</span>
+        <span class="mono meta">VERSION 1.31.4 · WINDOWS 10 AND 11, 64-BIT · FREE</span>
       </div>
-      <p class="note">The installer is not code-signed yet, so Windows may say it protected your PC: press <strong>More info</strong>, then <strong>Run anyway</strong>. By installing Songfinite you agree to the <a href="terms.html">terms of service</a>.</p>
+      <p class="note">The installer is not code-signed yet, so Windows may say it protected your PC: press <strong>More info</strong>, then <strong>Run anyway</strong>. Songfinite tells you itself when a newer version is out. By installing Songfinite you agree to the <a href="terms.html">terms of service</a>.</p>
     </div>
   </section>
 
@@ -87,21 +96,43 @@
     <div class="card"><h2 class="px">Synced lyrics</h2><p>Find lyrics, sync them line by line in the Lyrics Studio and sing along in full screen.</p></div>
     <div class="card"><h2 class="px">Offline</h2><p>Keep any YouTube song as a video or an MP3 on your computer, to play without the internet.</p></div>
     <div class="card"><h2 class="px">Songs window</h2><p>Browse everything as a grid, filtered by playlist, by tag, by what you never played or love most.</p></div>
+    <div class="card"><h2 class="px">Listening stats<span class="new">NEW</span></h2><p>A window of its own: today hour by hour against your usual day, every song heard, your top artists and a square for every day of the year.</p></div>
+    <div class="card"><h2 class="px">Storage<span class="new">NEW</span></h2><p>Keep songs on as many folders, disks, USB sticks and network shares as you like. Move files around: Songfinite finds them again.</p></div>
   </section>
 
   <section class="radio" id="radio">
     <div class="wrap">
       <span class="px air"><i></i>On air</span>
       <h2 class="px">YouTube radio</h2>
-      <p>Endless mixes made from what you like on YouTube. Songfinite finds the sounds in your listening (nightcore, rock versions, the artists you love) and turns each into a station that never runs out.</p>
-      <p>Every song has two buttons: ADD keeps the link in your songs, DOWNLOAD keeps it offline too. REROLL starts a station again from other songs, and any song you own can start a mix of its own.</p>
+      <p>Endless mixes made from what you like on YouTube. Songfinite finds the sounds in your listening (nightcore, rock versions, the artists you love) and turns them into mixes that never run out. Keep scrolling and new shelves of mixes keep tuning in.</p>
+      <ul>
+        <li><strong>Daily mixes</strong> that change every day, <strong>Because you like</strong> an artist, <strong>Discover</strong> mixes of artists you have never played, and mixes for your late nights, mornings, workouts and focus.</li>
+        <li>Each mix shows the artists inside before you play it.</li>
+        <li><strong>Like and dislike</strong> any song, block an artist, and slide each mix between familiar songs and new ones. Songs you skip early count too.</li>
+        <li>ADD keeps a song's link in your songs, DOWNLOAD keeps it offline, and every song has the full menu: playlists, favourites, lyrics and more.</li>
+        <li>Your taste is read through Google sign-in, or straight through the YouTube sign-in of a browser installed on your computer (Firefox, Chrome, Edge, Opera GX, Brave, Vivaldi and others).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="whatsnew" id="new">
+    <div class="wrap">
+      <h2 class="px">What's new in 1.31</h2>
+      <ul>
+        <li>An endless YouTube radio home: daily mixes, discovery, time of day and mood mixes, recently tuned mixes, and a now playing strip.</li>
+        <li>Likes, dislikes, blocked artists and songs, and a familiar to new dial on every mix.</li>
+        <li>Listening stats in their own window, with today hour by hour, a year of days, top artists, songs, tags and mixes, and a CSV export.</li>
+        <li>Storage locations: unlimited folders and drives, USB sticks found under any letter, moved files relinked, duplicates and missing files found.</li>
+        <li>The browsers installed on your computer are listed to borrow a YouTube sign-in from, each profile by name.</li>
+        <li>Reading your taste never fails because one source does, and Songfinite now checks for new versions by itself.</li>
+      </ul>
     </div>
   </section>
 
   <section class="google" id="google">
     <div class="wrap">
       <h2 class="px">Signing in with Google</h2>
-      <p>Signing in is optional. When you do, Songfinite asks Google for read-only access to your YouTube account, so the radio can read the videos you liked, your playlists and the channels you follow. That information is used only to build your mixes, on your own computer. Songfinite has no servers: nothing you sign in with or listen to is sent to its developer or to anyone else.</p>
+      <p>Signing in is optional. When you do, Songfinite asks Google for read-only access to your YouTube account, so the radio can read the videos you liked, your playlists and the channels you follow. That information is used only to build your mixes, on your own computer. Without Google sign-in, the radio can read the same from the YouTube sign-in of a browser on your computer, or learn from what you play in Songfinite. Songfinite has no servers: nothing you sign in with or listen to is sent to its developer or to anyone else.</p>
       <p>Songfinite uses YouTube API Services. By using its YouTube features you also agree to the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>, and Google handles your data under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
       <p>Read the full <a href="privacy.html">privacy policy</a> and the <a href="terms.html">terms of service</a>.</p>
     </div>
@@ -111,7 +142,7 @@
 <footer>
   <div class="wrap">
     <span>Songfinite · made for listening</span>
-    <a href="https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1/SongfiniteSetup-1.22.exe">Download 1.22</a>
+    <a href="https://github.com/Shaddyprogramming/Songfinite-win64.exe/releases/download/v1/SongfiniteSetup-1.31.4.exe">Download 1.31.4</a>
     <a href="privacy.html">Privacy policy</a>
     <a href="terms.html">Terms of service</a>
     <a href="mailto:kissdevidavid@gmail.com">Contact</a>
